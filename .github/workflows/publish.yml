@@ -23,7 +23,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: make pages-folder
-      run: mkdir pages
+      run: mkdir -p pages
     - name: Build with Gradle
       run: ./gradlew run
     - name: Deploy 🚀
