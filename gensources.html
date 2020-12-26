@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html charset=UTF-8>
+<head><title>Gen-Sources</title></head>
+  <body>
+<h1>Gen. Sources</h1>
+<form id="birth"><select name="register" id="register" >
+    <option value='bilin23'>Bilin 23 oo 1840-1883</option>
+</select><br>
+    <label for="visited">Besucht am :</label> <input type="date" name="visited" id="visited" value="2020-12-26"/><br>
+    <label for='urlx'>URL :</label> <input name='urlx' type='text' id='urlx'><br> 
+    <label for='bild'>Bild :</label> <input name='bild' type='text' id='bild'><br> 
+    <label for='fol'>fol. :</label> <input name='fol' type='text' id='fol'><br> 
+    <label for='eintrag'>Eintrag :</label> <input name='eintrag' type='text' id='eintrag'><br> 
+<button type="button" id="birthreg">Eintrag erzeugen</button><br>&nbsp;<br><output id="birthregout"></output></form>
+  <script>
+templates = new Array(20);
+templates['bilin23'] = 'Römisch-katholische Pfarrei Bilin (tsch. Bílina), Kirchenbuch 23 "Traumatriken 1840-1883" (Signatur "5/23"), fol. {fol} (Bild {bild}), Eintrag "{eintrag}"; digitale Bilder, Staatliches Gebietsarchiv in Leitmeritz (Tschechien), "Vademecum - Státní oblastní archiv v Litoměřicích [Staatliches Gebietsarchiv in Leitmeritz], Suchwort Újezd" ({urlx} : besucht am {visited})';
+function erzeuge_birthreg() {
+var template = templates[document.getElementById("register").value];
+document.getElementById("birthregout").value =
+template.formatUnicorn({"urlx":document.getElementById("urlx").value,"bild":document.getElementById("bild").value,"fol":document.getElementById("fol").value,"eintrag":document.getElementById("eintrag").value,"visited":document.getElementById("visited").value})
+}
+document.getElementById("birthreg").onclick = erzeuge_birthreg;
+function datumDeutsch(date) {
+if (date.length<10) return date;
+return date.substr(8,2)+"."+date.substr(5,2)+"."+date.substr(0,4);
+}
+String.prototype.formatUnicorn = String.prototype.formatUnicorn ||
+function () {
+"use strict";
+var str = this.toString();
+if (arguments.length) {
+var t = typeof arguments[0];
+var key;
+var args = ("string" === t || "number" === t) ?
+Array.prototype.slice.call(arguments)
+: arguments[0];
+for (key in args) {
+str = str.replace(new RegExp("\{" + key + "\}", "gi"), args[key]);
+}
+}
+return str;
+};
+  </script>
+  </body>
+</html>
