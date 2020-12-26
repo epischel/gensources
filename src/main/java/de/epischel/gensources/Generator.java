@@ -18,8 +18,8 @@ public class Generator {
 	static PrintStream ps = System.out;
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		properties.load(new FileInputStream("resources/sources.properties"));
-		htmls.load(new FileInputStream("resources/html.properties"));
+		properties.load(new FileInputStream("src/main/resources/sources.properties"));
+		htmls.load(new FileInputStream("src/main/resources/html.properties"));
 		ps = new PrintStream(new File("gensources.html"),"UTF-8");
 		
 		List<String> quellen = properties.keySet().stream()
