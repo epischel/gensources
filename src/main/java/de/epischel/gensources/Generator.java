@@ -20,7 +20,7 @@ public class Generator {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		properties.load(new FileInputStream("src/main/resources/sources.properties"));
 		htmls.load(new FileInputStream("src/main/resources/html.properties"));
-		ps = new PrintStream(new File("gensources.html"),"UTF-8");
+		ps = new PrintStream(new File("build/gensources.html"),"UTF-8");
 		
 		List<String> quellen = properties.keySet().stream()
 				.map(s->(String)s).filter(s->s.startsWith("quelle")).collect(Collectors.toList());
