@@ -23,7 +23,7 @@ public class Generator {
 		ps = new PrintStream(new File("pages/gensources.html"),"UTF-8");
 		
 		List<String> quellen = properties.keySet().stream()
-				.map(s->(String)s).filter(s->s.startsWith("quelle")).collect(Collectors.toList());
+				.map(s->(String)s).filter(s->s.startsWith("quelle")).sorted().collect(Collectors.toList());
 		
 		ps.println("<!DOCTYPE html>");
 		ps.println("<html charset=UTF-8>");
