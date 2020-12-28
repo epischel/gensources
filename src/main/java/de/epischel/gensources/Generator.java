@@ -65,7 +65,7 @@ public class Generator {
 	
 	static void printInputFields(PrintStream os) {
 		List<String> labels = getLabels();
-		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String today = sdf.format(new Date());
 		os.println("    <label for=\"visited\">Besucht am :</label> "
 				+ "<input type=\"date\" name=\"visited\" id=\"visited\" value=\""+today+"\"/><br>");
