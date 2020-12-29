@@ -20,12 +20,12 @@
     <option value='neudorf9'>Neudorf 9 +  1847-1886</option>
     <option value='neudorf12'>Neudorf 12 + 1886-1924</option>
 </select><br>
-    <label for="visited">Besucht am :</label> <input type="date" name="visited" id="visited" value="2020-12-28"/><br>
+    <label for="visited">Besucht am :</label> <input type="date" name="visited" id="visited" value="2020-12-29"/><br>
     <label for='fol'>fol. :</label> <input name='fol' type='text' id='fol'><br> 
     <label for='urlx'>URL :</label> <input name='urlx' type='text' id='urlx'><br> 
     <label for='eintrag'>Eintrag :</label> <input name='eintrag' type='text' id='eintrag'><br> 
     <label for='bild'>Bild :</label> <input name='bild' type='text' id='bild'><br> 
-<button type="button" id="birthreg">Eintrag erzeugen</button><br>&nbsp;<br><output id="birthregout"></output></form>
+<button type="button" id="birthreg">Eintrag erzeugen</button><br>&nbsp;<br><output id="birthregout"></output><br/><input type=text id="hiddenoutput"><br>&nbsp;<br><button type="button" id="copyButton">kopieren</button>
   <script>
 templates = new Array(20);
 templates['bilin23'] = 'Römisch-katholische Pfarrei Bilin (tsch. Bílina), Kirchenbuch 23 "Traumatriken 1840-1883" (Signatur "5/23"), fol. {fol} (Bild {bild}), Eintrag "{eintrag}"; digitale Bilder, Staatliches Gebietsarchiv in Leitmeritz (Tschechien), "Vademecum - Státní oblastní archiv v Litoměřicích [Staatliches Gebietsarchiv in Leitmeritz], Suchwort Újezd" ({urlx} : besucht am {visited})';
@@ -47,8 +47,10 @@ function erzeuge_birthreg() {
 var template = templates[document.getElementById("register").value];
 document.getElementById("birthregout").value =
 template.formatUnicorn({"fol":document.getElementById("fol").value,"urlx":document.getElementById("urlx").value,"eintrag":document.getElementById("eintrag").value,"bild":document.getElementById("bild").value,"visited":document.getElementById("visited").value})
+document.getElementById("hiddenoutput").value =
+template.formatUnicorn({"fol":document.getElementById("fol").value,"urlx":document.getElementById("urlx").value,"eintrag":document.getElementById("eintrag").value,"bild":document.getElementById("bild").value,"visited":document.getElementById("visited").value})
 }
-document.getElementById("birthreg").onclick = erzeuge_birthreg;
+document.getElementById("birthreg").onclick = erzeuge_birthreg;document.getElementById("copyButton").onclick = kopiereText;
 function datumDeutsch(date) {
 if (date.length<10) return date;
 return date.substr(8,2)+"."+date.substr(5,2)+"."+date.substr(0,4);
@@ -69,6 +71,8 @@ str = str.replace(new RegExp("\{" + key + "\}", "gi"), args[key]);
 }
 return str;
 };
+function kopiereText() {
+var copyText  = document.getElementById("hiddenoutput");copyText.select();copyText.setSelectionRange(0, 99999);document.execCommand("copy");}
   </script>
   </body>
 </html>
