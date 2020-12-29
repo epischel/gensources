@@ -47,6 +47,7 @@ public class Generator {
 		ps.println(htmls.getProperty("js.onclick"));
 		ps.println(htmls.getProperty("js.datumdeutsch"));
 		ps.println(htmls.getProperty("js.format"));
+		ps.println(htmls.getProperty("js.kopiereText"));
 		ps.println("  </script>");
 		ps.println("  </body>");
 		ps.println("</html>");
@@ -95,5 +96,8 @@ public class Generator {
 		System.out.println(argString);;
 		os.println("document.getElementById(\"birthregout\").value =");
 		os.println("template.formatUnicorn({"+argString+"})");
+		os.println("document.getElementById(\"hiddenoutput\").value =");
+		os.println("template.formatUnicorn({"+argString+"})");
+
 	}
 }
