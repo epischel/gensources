@@ -25,7 +25,7 @@
     <label for='urlx'>URL :</label> <input name='urlx' type='text' id='urlx'><br> 
     <label for='eintrag'>Eintrag :</label> <input name='eintrag' type='text' id='eintrag'><br> 
     <label for='bild'>Bild :</label> <input name='bild' type='text' id='bild'><br> 
-<button type="button" id="birthreg">Eintrag erzeugen</button><br>&nbsp;<br><output id="birthregout"></output><br/><input type=text id="hiddenoutput"><br>&nbsp;<br><button type="button" id="copyButton">kopieren</button>
+<button type="button" id="birthreg">Eintrag erzeugen</button><br>&nbsp;<br><output id="birthregout"></output><br/><input type=text id="hiddenoutput" name="hiddenoutput"><br>&nbsp;<br><button type="button" id="copyButton">kopieren</button>
   <script>
 templates = new Array(20);
 templates['bilin23'] = 'Römisch-katholische Pfarrei Bilin (tsch. Bílina), Kirchenbuch 23 "Traumatriken 1840-1883" (Signatur "5/23"), fol. {fol} (Bild {bild}), Eintrag "{eintrag}"; digitale Bilder, Staatliches Gebietsarchiv in Leitmeritz (Tschechien), "Vademecum - Státní oblastní archiv v Litoměřicích [Staatliches Gebietsarchiv in Leitmeritz], Suchwort Újezd" ({urlx} : besucht am {visited})';
@@ -50,7 +50,9 @@ template.formatUnicorn({"fol":document.getElementById("fol").value,"urlx":docume
 document.getElementById("hiddenoutput").value =
 template.formatUnicorn({"fol":document.getElementById("fol").value,"urlx":document.getElementById("urlx").value,"eintrag":document.getElementById("eintrag").value,"bild":document.getElementById("bild").value,"visited":document.getElementById("visited").value})
 }
-document.getElementById("birthreg").onclick = erzeuge_birthreg;document.getElementById("copyButton").onclick = kopiereText;
+document.getElementById("birthreg").onclick = erzeuge_birthreg;
+document.getElementById("copyButton").onclick = kopiereText;
+document.getElementById("register").onchange = felderAuswaehlen;
 function datumDeutsch(date) {
 if (date.length<10) return date;
 return date.substr(8,2)+"."+date.substr(5,2)+"."+date.substr(0,4);
@@ -73,6 +75,29 @@ return str;
 };
 function kopiereText() {
 var copyText  = document.getElementById("hiddenoutput");copyText.select();copyText.setSelectionRange(0, 99999);document.execCommand("copy");}
+function extractFields(templ) {
+const regex = /{(.+?)}/g;
+let match = regex.exec(templ);
+let result = new Array();
+while(match) {
+result.push(match[1]);
+match = regex.exec(templ);
+}
+return result;
+}
+function felderAuswaehlen() {
+let template = templates[document.getElementById("register").value];
+let neededFields = extractFields(template);
+neededFields.push("hiddenoutput");
+console.log(neededFields);
+let textfields = document.getElementsByTagName("input");
+for(let e of textfields) {
+let hide = !(neededFields.includes(e.name));
+e.hidden=hide;
+if (e.labels&&e.labels.length>0)
+e.labels.item(0).hidden=hide;
+}
+}
   </script>
   </body>
 </html>
