@@ -48,6 +48,8 @@ public class Generator {
 		ps.println(htmls.getProperty("js.datumdeutsch"));
 		ps.println(htmls.getProperty("js.format"));
 		ps.println(htmls.getProperty("js.kopiereText"));
+		ps.println(htmls.getProperty("js.extractFields"));
+		ps.println(htmls.getProperty("js.felderAuswaehlen"));
 		ps.println("  </script>");
 		ps.println("  </body>");
 		ps.println("</html>");
