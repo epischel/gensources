@@ -19,12 +19,19 @@
     <option value='neudorf8'>Neudorf 8 +  1794-1847</option>
     <option value='neudorf9'>Neudorf 9 +  1847-1886</option>
     <option value='neudorf12'>Neudorf 12 + 1886-1924</option>
+    <option value='hallegeburtsreg'>Halle/Saale * 1874-1903</option>
+    <option value='halleheiratsreg'>Halle/Saale oo 1874-1933</option>
+    <option value='hallesterbereg'>Halle/Saale + 1874-1957</option>
+    <option value='anhaltkb'>Anhaltinische KB 1760-1890</option>
 </select><br>
-    <label for="visited">Besucht am :</label> <input type="date" name="visited" id="visited" value="2020-12-29"/><br>
-    <label for='fol'>fol. :</label> <input name='fol' type='text' id='fol'><br> 
+    <label for="visited">Besucht am :</label> <input type="date" name="visited" id="visited" value="2021-01-01"/><br>
+    <label for='fol'>fol. :</label> <input name='fol' type='number' id='fol'><br> 
     <label for='urlx'>URL :</label> <input name='urlx' type='text' id='urlx'><br> 
+    <label for='gemeinde'>Gemeinde :</label> <input name='gemeinde' type='text' id='gemeinde'><br> 
     <label for='eintrag'>Eintrag :</label> <input name='eintrag' type='text' id='eintrag'><br> 
-    <label for='bild'>Bild :</label> <input name='bild' type='text' id='bild'><br> 
+    <label for='bild'>Bild :</label> <input name='bild' type='number' id='bild'><br> 
+    <label for='unr'>Register-Nr. :</label> <input name='unr' type='text' id='unr'><br> 
+    <label for='datum'>Datum d. Eintrags :</label> <input name='datum' type='date' id='datum'><br> 
 <button type="button" id="birthreg">Eintrag erzeugen</button><br>&nbsp;<br><output id="birthregout"></output><br/><input type=text id="hiddenoutput" name="hiddenoutput"><br>&nbsp;<br><button type="button" id="copyButton">kopieren</button>
   <script>
 templates = new Array(20);
@@ -43,12 +50,16 @@ templates['neudorf7'] = 'Römisch-katholische Pfarrei Neudorf (bei Petschau in B
 templates['neudorf8'] = 'Römisch-katholische Pfarrei Neudorf (bei Petschau in Böhmen, tsch. Nová Ves), Kirchenbuch 8 "Sterbematrik 1794-1847" (Signatur "Nová Ves (SO) 0"), fol. {fol} (Bild {bild}), Traueintrag "{eintrag}"; digitale Bilder, Staatliches Gebietsarchiv in Plzen (Tschechien), "Porta fontium - Bayerisch-tschechisches Netzwerk digitaler Geschichtsquellen" (http://www.portafontium.eu/register/soap-pn/nova-ves-so-08 : besucht am {visited})';
 templates['neudorf9'] = 'Römisch-katholische Pfarrei Neudorf (bei Petschau in Böhmen, tsch. Nová Ves), Kirchenbuch 9 "Sterbematrik 1847-1886" (Signatur "Nová Ves (SO) 09"), fol. {fol} (Bild {bild}), Eintrag "{eintrag}"; digitale Bilder, Staatliches Gebietsarchiv in Plzen (Tschechien), "Porta fontium - Bayerisch-tschechisches Netzwerk digitaler Geschichtsquellen" (http://www.portafontium.eu/register/soap-pn/nova-ves-so-09 : besucht am {visited})';
 templates['neudorf12'] = 'Römisch-katholische Pfarrei Neudorf (bei Petschau in Böhmen, tsch. Nová Ves), Kirchenbuch 12 "Sterbematrik 1886-1924" (Signatur "Nová Ves (SO) 12"), fol. {fol} (Bild {bild}), Eintrag "{eintrag}"; digitale Bilder, Staatliches Gebietsarchiv in Plzen (Tschechien), "Porta fontium - Bayerisch-tschechisches Netzwerk digitaler Geschichtsquellen" (http://www.portafontium.eu/register/soap-pn/nova-ves-so-12 : besucht am {visited})';
+templates['hallegeburtsreg'] = 'Halle (Saale), Sachsen-Anhalt, Deutschland, Geburtsregister 1874-1903", Ancestry.com (http://search.ancestry.de/search/db.aspx?dbid=61125 : besucht am {visited}), Digitales Bild des Eintrages im Geburtenregister für {eintrag} vom {datum}, Nr. {unr}, Stadtarchiv Halle (Saale)';
+templates['halleheiratsreg'] = '"Halle (Saale), Sachsen-Anhalt, Deutschland, Heiratsregister 1874-1933", Ancestry.com (http://search.ancestry.de/search/db.aspx?dbid=61126 : besucht am {visited}), Digitales Bild des Eintrages im Heiratsregister für {eintrag} vom {datum}, Nr. {unr}, Stadtarchiv Halle (Saale)';
+templates['hallesterbereg'] = '"Halle (Saale), Sachsen-Anhalt, Deutschland, Sterberegister 1874-1957", Ancestry.com (http://search.ancestry.de/search/db.aspx?dbid=61127 : besucht am {visited}), Digitales Bild des Eintrages im Sterberegister für {eintrag} vom {datum}, Nr. {unr}, Stadtarchiv Halle (Saale)';
+templates['anhaltkb'] = '"Saxony, Anhalt, Anhalt-Bernburg, Anhalt-Dessau und Anhalt-Köthen, Deutschland, evangelische Kirchenbücher, 1760-1890, Ancestry.com (http://search.ancestry.de/search/db.aspx?dbid=61132 : besucht am {visited}), Datenbankeintrag für {eintrag} am {datum}, Kirchengemeinde {gemeinde}, Landesarchiv Sachsen-Anhalt, Magdeburg, Deutschland';
 function erzeuge_birthreg() {
 var template = templates[document.getElementById("register").value];
 document.getElementById("birthregout").value =
-template.formatUnicorn({"fol":document.getElementById("fol").value,"urlx":document.getElementById("urlx").value,"eintrag":document.getElementById("eintrag").value,"bild":document.getElementById("bild").value,"visited":document.getElementById("visited").value})
+template.formatUnicorn({"fol":document.getElementById("fol").value,"urlx":document.getElementById("urlx").value,"gemeinde":document.getElementById("gemeinde").value,"eintrag":document.getElementById("eintrag").value,"bild":document.getElementById("bild").value,"unr":document.getElementById("unr").value,"datum":document.getElementById("datum").value,"visited":document.getElementById("visited").value})
 document.getElementById("hiddenoutput").value =
-template.formatUnicorn({"fol":document.getElementById("fol").value,"urlx":document.getElementById("urlx").value,"eintrag":document.getElementById("eintrag").value,"bild":document.getElementById("bild").value,"visited":document.getElementById("visited").value})
+template.formatUnicorn({"fol":document.getElementById("fol").value,"urlx":document.getElementById("urlx").value,"gemeinde":document.getElementById("gemeinde").value,"eintrag":document.getElementById("eintrag").value,"bild":document.getElementById("bild").value,"unr":document.getElementById("unr").value,"datum":document.getElementById("datum").value,"visited":document.getElementById("visited").value})
 }
 document.getElementById("birthreg").onclick = erzeuge_birthreg;
 document.getElementById("copyButton").onclick = kopiereText;
